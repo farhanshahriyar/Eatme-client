@@ -23,27 +23,32 @@ const Banner = () => {
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                     checked
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                 </div>
                 <p className="text-[#4A4A4A] text-sm">$18.00</p>
@@ -63,27 +68,32 @@ const Banner = () => {
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                     checked
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                   <input
                     type="radio"
                     name="rating-4"
                     className="mask mask-star-2 bg-green-800"
+                    readOnly
                   />
                 </div>
                 <p className="text-[#4A4A4A] text-sm">$18.00</p>
