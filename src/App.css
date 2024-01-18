@@ -11,3 +11,10 @@ header {
 }
 
 
+.subtitle {
+    @apply uppercase tracking-wide text-base font-medium text-red-600
+}
+
+.title {
+    @apply text-4xl md:text-5xl font-bold my-2 md:leading-snug leading-snug
+}
