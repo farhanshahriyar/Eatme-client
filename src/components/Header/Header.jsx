@@ -22,10 +22,10 @@ const Header = () => {
 
   const navItems = (
     <>
-      <li>
+      <li className="hover:text-green-800">
         <a href="/">Home</a>
       </li>
-      <li>
+      <li className="hover:text-green-800">
         <details>
           <summary>Menu</summary>
           <ul className="p-2">
@@ -38,10 +38,13 @@ const Header = () => {
             <li>
               <a>Pizza</a>
             </li>
+            <li>
+              <a>Coffees</a>
+            </li>
           </ul>
         </details>
       </li>
-      <li>
+      <li className="hover:text-green-800">
         <details>
           <summary>Services</summary>
           <ul className="p-2">
@@ -57,7 +60,7 @@ const Header = () => {
           </ul>
         </details>
       </li>
-      <li>
+      <li className="hover:text-green-800">
         <a>Orders</a>
       </li>
     </>
@@ -141,7 +144,7 @@ const Header = () => {
             </div>
           </div>
           {/* btn */}
-          <a className="btn rounded-full px-6 flex item-center gap-2 bg-[#115435] text-[#FFFFFF] hover:bg-slate-800 hover:text-white">
+          <a className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white">
             <BiPhoneCall />
             Contact
           </a>

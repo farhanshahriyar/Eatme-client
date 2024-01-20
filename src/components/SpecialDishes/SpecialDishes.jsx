@@ -3,10 +3,36 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Cards from "./SpecialDishesCard/Cards";
+import {} from "react-icons/fa6";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
+const simpleNextSlideArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className} style={{ ...style, display: "block", background: "red" }}
+      onClick={onClick}
+    >
+      NEXT
+    </div>
+  );
+};
+
+const simplePrevSlideArrow = (props) => {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className} style={{ ...style, display: "block", background: "green" }}
+      onClick={onClick}
+    >
+      PREV
+    </div>
+  );
+}
 
 const SpecialDishes = () => {
   const [recipies, setRecipies] = useState([]);
-  const slide = React.useRef(null);
+  const slider = React.useRef(null);
 
   useEffect(() => {
     fetch("/public/menu.json")
@@ -53,21 +79,27 @@ const SpecialDishes = () => {
         },
       },
     ],
+    simpleNextSlideArrow: <simpleNextSlideArrow />,
+    simplePrevSlideArrow: <simplePrevSlideArrow />,
   };
   return (
-    <div className="section-container my-20">
+    <div className="section-container my-20 relative">
       <div>
         <p className="subtitle">Customer Favourites</p>
         <h2 className="title md:w-[520px]">Standout Dishes From Our Menu</h2>
       </div>
 
+      {/* slider buttons */}
+      <div className="md:absolute right-8 top-8 mb-10 md:mr-24">
+        <button className="btn p-2 bg-[#F00] hover:bg-[#FF8938] text-white ml-5" onClick={()=> slider?.current?.slickPrev()}><FaAngleLeft className="w-8 h-8 p-1"/></button>
+        <button className="btn p-2 bg-[#F00] hover:bg-[#FF8938] text-white ml-5" onClick={()=> slider?.current?.slickNext()}><FaAngleRight className="w-8 h-8 p-1"/></button>
+      </div>
+
       {/* slide */}
-      <Slider {...settings}>
-        {
-            recipies.map((item, i) => (
-                <Cards key={i} item={item} />
-            ))
-        }
+      <Slider ref={slider} {...settings} className="overflow-hidden mt-10 space-x-5">
+        {recipies.map((item, i) => (
+          <Cards key={i} item={item} />
+        ))}
       </Slider>
     </div>
   );

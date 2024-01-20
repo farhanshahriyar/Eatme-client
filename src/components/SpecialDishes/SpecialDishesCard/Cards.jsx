@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
@@ -11,7 +12,7 @@ const Cards = ({ item }) => {
 
   return (
     <div className="card w-96 bg-base-100 shadow-xl relative">
-        <div className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-green-400 ${isHeartFilled ? "text-rose-600" : "text-white"}`}
+        <div className={`rating gap-1 absolute right-2 top-2 p-4 heartStar bg-[#FF8938] ${isHeartFilled ? "text-rose-600" : "text-white"}`}
         onClick={handleHeartClick}
         >
             <FaHeart className="h-5 w-5 cursor-pointer"/>
@@ -22,14 +23,14 @@ const Cards = ({ item }) => {
         </figure>
       </Link>
       <div className="card-body">
-        <h2 className="card-title">{item.name}</h2>
+        <Link to={`/menu/${item._id}`} className="card-title">{item.name}</Link>
         <p>{item.recipe}</p>
         <div className="card-actions justify-between items-center mt-2">
           <h5 className="font-semibold">
             <span className="text-sm text-red-500">$</span>
             {item.price}
           </h5>
-          <button className="btn bg-green-800 hover:bg-black text-white">Buy Now!</button>
+          <button className="btn bg-[#F00] hover:bg-black text-white">Buy Now!</button>
         </div>
       </div>
     </div>
