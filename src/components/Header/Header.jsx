@@ -30,7 +30,7 @@ const Header = () => {
           <summary>Menu</summary>
           <ul className="p-2">
             <li>
-              <a>All</a>
+              <a href="/menu">All</a>
             </li>
             <li>
               <a>Salad</a>
@@ -99,7 +99,7 @@ const Header = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navItems}</ul>
+          <ul className="menu menu-horizontal px-1 text-base">{navItems}</ul>
         </div>
         <div className="navbar-end">
           {/* search */}

@@ -37,7 +37,8 @@ const Categories = () => {
       {/* category cards */}
       <div className="flex flex-col sm:flex-row flex-wrap gap-8 justify-around items-center mt-12">
         {categoryItems.map((item, i) => (
-          <div key={i} className="shadow-lg rounded-md bg-white py-6 px-5 w-72 mx-auto text-center cursor-pointer hover:-translate-y-4 duration-300 trasition-all">
+          <div key={i} className="shadow-lg rounded-md bg-white py-6 px-5 w-72
+           mx-auto text-center cursor-pointer hover:-translate-y-4 duration-300 trasition-all">
             <div className="flex w-full mx-auto items-center justify-center">
               <img
                 src={item.image}
