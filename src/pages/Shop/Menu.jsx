@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FiArrowDownRight } from "react-icons/fi";
 import Cards from "../../components/SpecialDishes/SpecialDishesCard/Cards";
+import { FaFilter } from "react-icons/fa";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -96,38 +97,69 @@ const Menu = () => {
       {/* menu shop section */}
       <div className="max-w-screen-2xl container mx-auto">
         {/* filtering and sorting */}
-        <div>
-         {/* all category btns */}
-         <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap text-lg ">
-           <button onClick={showAll}
-           className={selectedCategory === "all" ? "active" : ""}
-           >All</button>
-           <button onClick={()=> filterItems("salad")}
-           className={selectedCategory === "salad" ? "active" : ""}
-           >Salad</button>
-           <button onClick={()=> filterItems("pizza")}
-            className={selectedCategory === "pizza" ? "active" : ""}
-           >Pizza</button>
-           <button onClick={()=> filterItems("soup")}
-           className={selectedCategory === "soup" ? "active" : ""}
-           >Soup</button>
-           <button onClick={()=> filterItems("dessert")}
-           className={selectedCategory === "dessert" ? "active" : ""}
-           >Desserts</button>
-           <button onClick={()=> filterItems("drinks")}
-            className={selectedCategory === "drinks" ? "active" : ""}
-           >Drinks</button>
-         </div>
+        <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center mb-9 ">
+          {/* all category btns */}
+          <div className="flex flex-row justify-start md:items-center md:gap-8 gap-4 flex-wrap text-lg">
+            <button
+              onClick={showAll}
+              className={selectedCategory === "all" ? "active" : ""}
+            >
+              All
+            </button>
+            <button
+              onClick={() => filterItems("salad")}
+              className={selectedCategory === "salad" ? "active" : ""}
+            >
+              Salad
+            </button>
+            <button
+              onClick={() => filterItems("pizza")}
+              className={selectedCategory === "pizza" ? "active" : ""}
+            >
+              Pizza
+            </button>
+            <button
+              onClick={() => filterItems("soup")}
+              className={selectedCategory === "soup" ? "active" : ""}
+            >
+              Soup
+            </button>
+            <button
+              onClick={() => filterItems("dessert")}
+              className={selectedCategory === "dessert" ? "active" : ""}
+            >
+              Desserts
+            </button>
+            <button
+              onClick={() => filterItems("drinks")}
+              className={selectedCategory === "drinks" ? "active" : ""}
+            >
+              Drinks
+            </button>
+          </div>
 
+          {/* sorting base filtering */}
+          <div className="flex justify-end mb-4 rounded-sm">
+            <div className="bg-black p-2">
+              <FaFilter className="h-4 w-4 text-white" />
+            </div>
+
+            {/* sorting options */}
+            <select name="sort" id="sort" onChange={(e)=> handleSortChange(e.target.value)} value={sortOption} className="bg-black text-white px-2 py-1 rounded-sm" >
+              <option value="default">Default</option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="low-to-high">Price: Low to High</option>
+              <option value="high-to-low">Price: High to Low</option>
+            </select>
+          </div>
         </div>
 
         {/* products card */}
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5">
-          {
-            filteredItems.map((item) => (
-              <Cards key={item._id} item={item} />
-            ))
-          }
+          {filteredItems.map((item) => (
+            <Cards key={item._id} item={item} />
+          ))}
         </div>
       </div>
     </div>
