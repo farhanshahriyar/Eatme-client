@@ -8,6 +8,9 @@ const Menu = () => {
   const [filteredItems, setFilteredItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortOption, setSortOption] = useState("default");
+  // making pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage] = useState(8);
 
   // loading menu data
   useEffect(() => {
@@ -36,12 +39,14 @@ const Menu = () => {
 
     setFilteredItems(filtered);
     setSelectedCategory(category);
+    setCurrentPage(1); // reset pagination
   };
 
   // show all data
   const showAll = () => {
     setFilteredItems(menu);
     setSelectedCategory("all");
+    setCurrentPage(1); // reset pagination
   };
 
   // sorting menu based on price
@@ -69,7 +74,15 @@ const Menu = () => {
     }
 
     setFilteredItems(sortedItems);
+    setCurrentPage(1); // reset pagination
   };
+
+   // logic for pagination
+   const indexOfLastItem = currentPage * itemPerPage;
+   const indexOfFirstItem = indexOfLastItem - itemPerPage;
+   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+ 
 
   return (
     <div className="">
@@ -157,11 +170,23 @@ const Menu = () => {
 
         {/* products card */}
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5">
-          {filteredItems.map((item) => (
+          {
+          currentItems.map((item) => (
             <Cards key={item._id} item={item} />
           ))}
         </div>
+
       </div>
+        {/* pagination */}
+        <div className="flex justify-center my-8">
+           {
+              Array.from({length: Math.ceil(filteredItems.length / itemPerPage)}).map ((_, index) => (
+                <button key={index + 1} onClick={()=> paginate(index + 1)} className={`mx-1 btn py-2 px-4  rounded-full ${currentPage === index + 1 ? "bg-[#F00] text-white" : "bg-gray-200"}`}>
+                  {index + 1}
+                </button>
+              ))
+          }
+        </div>
     </div>
   );
 };
