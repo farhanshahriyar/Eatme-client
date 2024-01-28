@@ -49,6 +49,7 @@ const Modal = () => {
                   placeholder="password"
                   className="input input-bordered"
                   // required
+                  {...register("password")}
                 />
                 <label className="label mt-1">
                   <a
