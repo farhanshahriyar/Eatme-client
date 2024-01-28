@@ -169,7 +169,7 @@ const Menu = () => {
         </div>
 
         {/* products card */}
-        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5">
+        <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-5 sm:gap-3">
           {
           currentItems.map((item) => (
             <Cards key={item._id} item={item} />

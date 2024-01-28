@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BiPhoneCall } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa";
+import Modal from "../Modal/Modal";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
 
   // handle scroll event
   useEffect(() => {
-   const handleScroll = () => {
+    const handleScroll = () => {
       const offset = window.scrollY;
       if (offset > 0) {
         setIsSticky(true);
@@ -15,9 +17,9 @@ const Header = () => {
       }
     };
     window.addEventListener("scroll", handleScroll);
-    return() => {
+    return () => {
       window.removeEventListener("scroll", handleScroll);
-    }
+    };
   }, []);
 
   const navItems = (
@@ -67,7 +69,13 @@ const Header = () => {
   );
   return (
     <header className="max-w-screen-2xl container mx-auto fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out">
-      <div className={`navbar xl:px-24 -${isSticky? "shadow-md bg-base-100 transition-all duration-300 ease-in-out" : ""}`}>
+      <div
+        className={`navbar xl:px-24 -${
+          isSticky
+            ? "shadow-md bg-base-100 transition-all duration-300 ease-in-out"
+            : ""
+        }`}
+      >
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -144,10 +152,20 @@ const Header = () => {
             </div>
           </div>
           {/* btn */}
-          <a className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white">
+          {/* <button className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white">
             <BiPhoneCall />
             Contact
-          </a>
+          </button> */}
+          {/* login btn */}
+          <button
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+            className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white"
+          >
+            <FaRegUser />
+            Login
+          </button>
+          {/* modal for login */}
+         <Modal/>
         </div>
       </div>
     </header>
