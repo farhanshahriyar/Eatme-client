@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { IoIosCloseCircle } from "react-icons/io";
 
 const Modal = () => {
   const {
@@ -77,9 +78,17 @@ const Modal = () => {
                   to="/signup"
                   className="link link-hover text-base text-red-700"
                 >
-                  Sign Up
+                  Signup
                 </Link>
               </p>
+
+              <button
+                htmlFor="my_modal_5"
+                onClick={() => document.getElementById("my_modal_5").close()}
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
+                <IoIosCloseCircle className="text-4xl text-center" />
+              </button>
             </form>
           </div>
           {/* social sign in */}

@@ -65,6 +65,12 @@ const Header = () => {
       <li className="hover:text-green-800">
         <a>Orders</a>
       </li>
+      <li className="hover:text-green-800">
+        <a href="/about">About Us</a>
+      </li>
+      <li className="hover:text-green-800">
+        <a href="/contact">Contact</a>
+      </li>
     </>
   );
   return (
