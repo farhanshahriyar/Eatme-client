@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BiPhoneCall } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
 import Modal from "../Modal/Modal";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
+  const {user} = useContext(AuthContext)
+  console.log(user)
 
   // handle scroll event
   useEffect(() => {
