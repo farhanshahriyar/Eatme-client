@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Modal = () => {
   const {
@@ -11,7 +12,23 @@ const Modal = () => {
     formState: { errors },
   } = useForm();
 
+  // 
+  const {signUpWithGmail} = useContext(AuthContext);
+
   const onSubmit = (data) => console.log(data);
+
+  // login with google
+  const handleLogin = () => {
+    signUpWithGmail().then((result) => {
+      const user = result.user;
+      alert("Login successfully");
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      alert(errorMessage);
+      console.log(error)
+    });
+  }
 
   return (
     <div>
@@ -93,7 +110,7 @@ const Modal = () => {
           </div>
           {/* social sign in */}
           <div className="text-center space-x-3 mb-5">
-            <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
+            <button className="btn btn-circle hover:bg-[#F00] hover:text-white" onClick={handleLogin}>
               <FaGoogle />
             </button>
             <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
