@@ -30,6 +30,7 @@ const Modal = () => {
       .then((result) => {
         const user = result.user;
         alert("login successfull");
+        document.getElementById("my_modal_5").close();
         navigate(from, { replace: true });
       })
       .catch((error) => {
@@ -44,6 +45,7 @@ const Modal = () => {
       .then((result) => {
         const user = result.user;
         alert("Login successfully");
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;

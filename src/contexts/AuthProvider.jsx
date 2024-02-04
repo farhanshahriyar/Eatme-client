@@ -20,16 +20,7 @@ const AuthProvider = ({ children }) => {
 
   // create an account via email and password
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // sign in email and password with gmail
