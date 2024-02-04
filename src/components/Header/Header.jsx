@@ -3,11 +3,12 @@ import { BiPhoneCall } from "react-icons/bi";
 import { FaRegUser } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 import { AuthContext } from "../../contexts/AuthProvider";
+import Profile from "../Porfile/Profile";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const {user} = useContext(AuthContext)
-  console.log(user)
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   // handle scroll event
   useEffect(() => {
@@ -160,21 +161,22 @@ const Header = () => {
               <span className="badge badge-sm indicator-item">0</span>
             </div>
           </div>
-          {/* btn */}
-          {/* <button className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white">
-            <BiPhoneCall />
-            Contact
-          </button> */}
-          {/* login btn */}
-          <button
-            onClick={() => document.getElementById("my_modal_5").showModal()}
-            className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white"
-          >
-            <FaRegUser />
-            Login
-          </button>
+          {/* user condition btn */}
+
+          {user ? (
+            <Profile user={user}/>
+          ) : (
+            <button
+              onClick={() => document.getElementById("my_modal_5").showModal()}
+              className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white"
+            >
+              <FaRegUser />
+              Login
+            </button>
+          )}
+
           {/* modal for login */}
-         <Modal/>
+          <Modal />
         </div>
       </div>
     </header>
