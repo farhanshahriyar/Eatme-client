@@ -12,10 +12,12 @@ const Profile = ({ user }) => {
             className="drawer-button btn  btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
+              {
+                user.photoURL ? <img
                 alt={user.displayName}
                 src={user.photoURL}
-              />
+              /> : <img src="https://picsum.photos/id/1005/200/200" alt="profile" />
+              }
             </div>
           </label>
         </div>
