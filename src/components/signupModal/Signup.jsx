@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaPhone } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { IoIosCloseCircle } from "react-icons/io";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
   const {
@@ -12,7 +13,24 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+   // get info from AuthContext
+   const {createUser, login} = useContext(AuthContext);
+   const [errorMessage, setErrorMessage] = useState("")
+
+
+  const onSubmit = (data) => {
+    const email = data.email;
+    const password = data.password;
+    // console.log(email, password);
+    createUser(email, password).then((result)=> {
+      //signed up successfully
+      const user = result.user;
+      alert('Account created successfully')
+    }).catch((error) => {
+      const errorMessage = error.message;
+      setErrorMessage("please provide correct credential")
+    })
+  }
 
   return (
     <div className="">

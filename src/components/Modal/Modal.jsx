@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle, FaPhone } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider";
 
@@ -13,35 +13,45 @@ const Modal = () => {
   } = useForm();
 
   // get info from AuthContext
-  const {signUpWithGmail, login} = useContext(AuthContext);
-  const [errorMessage, setErrorMessage] = useState("")
+  const { signUpWithGmail, login } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // redirect to the home page or specific page
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from.pathname || "/";
 
   // login with email and password
   const onSubmit = (data) => {
     const email = data.email;
     const password = data.password;
     // console.log(email, password);
-    login(email, password).then((result)=> {
-      const user = result.user;
-      alert('login successfull')
-    }).catch((error) => {
-      const errorMessage = error.message;
-      setErrorMessage("please provide correct credential")
-    })
-  }
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+        alert("login successfull");
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setErrorMessage("Please provide correct credential!");
+      });
+  };
 
   // login with google
   const handleLogin = () => {
-    signUpWithGmail().then((result) => {
-      const user = result.user;
-      alert("Login successfully");
-    }).catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      alert(errorMessage);
-      console.log(error)
-    });
-  }
+    signUpWithGmail()
+      .then((result) => {
+        const user = result.user;
+        alert("Login successfully");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -93,10 +103,11 @@ const Modal = () => {
               </div>
 
               {/* error message */}
-              {
-                errorMessage ? <p className="text-red-500 text-sm italic">{setErrorMessage}</p> : ""
-              }
-
+              {errorMessage ? (
+                <p className="text-red-500 text-sm italic">{errorMessage}</p>
+              ) : (
+                ""
+              )}
 
               <div className="form-control mt-6">
                 <button
@@ -130,7 +141,10 @@ const Modal = () => {
           </div>
           {/* social sign in */}
           <div className="text-center space-x-3 mb-5">
-            <button className="btn btn-circle hover:bg-[#F00] hover:text-white" onClick={handleLogin}>
+            <button
+              className="btn btn-circle hover:bg-[#F00] hover:text-white"
+              onClick={handleLogin}
+            >
               <FaGoogle />
             </button>
             <button className="btn btn-circle hover:bg-[#F00] hover:text-white">

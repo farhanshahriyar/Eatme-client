@@ -39,16 +39,7 @@ const AuthProvider = ({ children }) => {
 
   // login using email and password
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   // logout functionalities
