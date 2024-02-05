@@ -5,6 +5,7 @@ import Menu from "../pages/Shop/Menu";
 import Signup from "../components/signupModal/Signup";
 import Contact from "../pages/Contact/Contact";
 import About from "../pages/About/About";
+import PrivateRouter from "../components/PrivateRoute/PrivateRouter";
 
 export const router = createBrowserRouter([
     {
@@ -12,7 +13,7 @@ export const router = createBrowserRouter([
       element: <Main/>,
         children: [
             { path: "/", element: <Home/> },
-            { path: "/menu", element: <Menu/> },
+            { path: "/menu", element: <PrivateRouter><Menu/></PrivateRouter> },
             { path: "/about", element: <About/> },
             { path: "/contact", element: <Contact/> },
         ],
