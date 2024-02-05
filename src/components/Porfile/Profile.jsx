@@ -42,7 +42,7 @@ const Profile = ({ user }) => {
               <a>{user.displayName || "No Name"}</a>
             </li>
             <li>
-              <a>Profile</a>
+              <a href="/update-profile">Profile</a>
             </li>
             <li>
               <a>Order</a>
