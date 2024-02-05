@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from "../../../contexts/AuthProvider";
 
 const UpdateProfile = () => {
-    const { updateUserProfile } = useContext(AuthContext);
+    const {  updateUserProfile } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -14,7 +14,7 @@ const UpdateProfile = () => {
       const onSubmit = (data) => {
         const name = data.name;
         const photoURL = data.photoURL;
-        updateUserProfile(name, photoURL).then(()=>{
+        updateUserProfile({ name, photoURL }).then(()=>{
             alert("Profile updated successfully")
         }).catch((error)=>{
             alert("Error: "+error.message)
@@ -48,7 +48,6 @@ const UpdateProfile = () => {
               type="text"
               placeholder="photoURL link"
               className="input input-bordered"
-              required
             />
 
             {/* NB: will be add uploading image later here */}
