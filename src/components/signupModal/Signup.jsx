@@ -40,8 +40,8 @@ const Signup = () => {
       });
   };
 
-   // login with google
-   const handleLogin = () => {
+  // login with google
+  const handleLogin = () => {
     signUpWithGmail()
       .then((result) => {
         const user = result.user;
@@ -157,18 +157,20 @@ const Signup = () => {
         </div>
         {/* social sign in */}
         <div className="text-center space-x-3 mb-5 mt-5">
-        <button
-              className="btn btn-circle hover:bg-[#F00] hover:text-white"
-              onClick={handleLogin}
-            >
-              <FaGoogle />
-            </button>
+          <button
+            className="btn btn-circle hover:bg-[#F00] hover:text-white"
+            onClick={handleLogin}
+          >
+            <FaGoogle />
+          </button>
           <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
             <FaFacebook />
           </button>
-          <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
-            <FaPhone />
-          </button>
+          <Link to="/phone-login">
+            <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
+              <FaPhone />
+            </button>
+          </Link>
         </div>
       </div>
       {/* modal for login */}

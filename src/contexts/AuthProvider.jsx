@@ -6,6 +6,7 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPhoneNumber,
   signInWithPopup,
   signOut,
   updateProfile,
@@ -47,6 +48,11 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  // phone authentication
+  const phoneLogin = (phoneNumber, appVerifier) => {
+    return signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+  };
+
   // check signed in-users
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -71,6 +77,7 @@ const AuthProvider = ({ children }) => {
     logout,
     updateUserProfile,
     loading,
+    phoneLogin,
   };
 
   return (

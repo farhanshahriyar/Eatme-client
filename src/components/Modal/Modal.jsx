@@ -153,9 +153,11 @@ const Modal = () => {
             <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
               <FaFacebook />
             </button>
-            <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
-              <FaPhone />
-            </button>
+            <Link to="/phone-login">
+              <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
+                <FaPhone />
+              </button>
+            </Link>
           </div>
         </div>
       </dialog>
