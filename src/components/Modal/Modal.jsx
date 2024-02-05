@@ -13,7 +13,7 @@ const Modal = () => {
   } = useForm();
 
   // get info from AuthContext
-  const { signUpWithGmail, login } = useContext(AuthContext);
+  const { signUpWithGmail, login, signInWithFacebook } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
 
   // redirect to the home page or specific page
@@ -55,6 +55,23 @@ const Modal = () => {
         console.log(error);
       });
   };
+
+   // login with facebook 
+  const handleFacebook = () => {
+    signInWithFacebook()
+      .then((result) => {
+        const user = result.user;
+        alert("Login with facebook successfully");
+        document.getElementById("my_modal_5").close();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(errorMessage);
+        console.log(error);
+      });
+  }
 
   return (
     <div>
@@ -150,7 +167,9 @@ const Modal = () => {
             >
               <FaGoogle />
             </button>
-            <button className="btn btn-circle hover:bg-[#F00] hover:text-white">
+            <button className="btn btn-circle hover:bg-[#F00] hover:text-white"
+            onClick={handleFacebook}
+            >
               <FaFacebook />
             </button>
             <Link to="/phone-login">
