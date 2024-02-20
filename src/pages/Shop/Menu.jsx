@@ -17,7 +17,7 @@ const Menu = () => {
     // fetch data from json file
     const fetchData = async () => {
       try {
-        const response = await fetch("/menu.json");
+        const response = await fetch("http://localhost:6001/menu");
         const data = await response.json();
         setMenu(data);
         setFilteredItems(data);
@@ -85,7 +85,7 @@ const Menu = () => {
  
 
   return (
-    <div className="">
+    <div className="#">
       <div className="max-w-screen-2xl container mx-auto xl:px-24 bg-gradient-to-r from-[#FAFAFA] to-[#FCFCFC] p-4">
         <div className="py-48 flex flex-col items-center justify-center space-y-7">
           {/* Heading */}
@@ -169,7 +169,7 @@ const Menu = () => {
         </div>
 
         {/* products card */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 p-4">
           {
           currentItems.map((item) => (
             <Cards key={item._id} item={item} />

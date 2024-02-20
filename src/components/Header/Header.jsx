@@ -4,6 +4,8 @@ import { FaRegUser } from "react-icons/fa";
 import Modal from "../Modal/Modal";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Profile from "../Porfile/Profile";
+import LogoWeb from "../../../public/logo.png"
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -111,10 +113,10 @@ const Header = () => {
               {navItems}
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl" href="/">
-            Logo.
-            {/* <img src="https://picsum.photos/id/1005/200/200" alt="logo" className="w-8 h-8 rounded-full inline-block ml-2" /> */}
-          </a>
+          <Link className="" href="/">
+            {/* Logo. */}
+            <img src={LogoWeb} alt="logo" className="w-30 h-20 inline-block ml-2" />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 text-base">{navItems}</ul>
