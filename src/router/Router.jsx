@@ -8,6 +8,7 @@ import About from "../pages/About/About";
 import PrivateRouter from "../components/PrivateRoute/PrivateRouter";
 import UpdateProfile from "../pages/Dashboard/UpdateProfile/UpdateProfile";
 import PhoneLogin from "../pages/PhoneLogin/PhoneLogin";
+import CartPage from "../pages/Shop/Cart/CartPage";
 
 export const router = createBrowserRouter([
     {
@@ -19,7 +20,8 @@ export const router = createBrowserRouter([
             { path: "/about", element: <About/> },
             { path: "/contact", element: <Contact/> },
             { path: "/phone-login", element: <PhoneLogin/> },
-            { path: "/update-profile", element: <PrivateRouter><UpdateProfile/></PrivateRouter>}
+            { path: "/cart", element: <PrivateRouter><CartPage/></PrivateRouter>},
+            { path: "/update-profile", element: <PrivateRouter><UpdateProfile/></PrivateRouter>},
         ],
     },
     {
