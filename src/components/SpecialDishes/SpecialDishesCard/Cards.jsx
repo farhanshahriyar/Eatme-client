@@ -41,15 +41,49 @@
 
 // export default Cards;
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const Cards = ({ item }) => {
+  const { name, price, recipe, image, _id } = item;
   const [isHeartFilled, setIsHeartFilled] = useState(false);
+  const { user } = useContext(AuthContext);
+  console.log(user);
 
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
+  };
+
+  const handleAddToCart = (item) => {
+    // console.log("Added to cart",item);
+    if (user && user?.email) {
+      const cartItem = {
+        menuItemId: _id,
+        name,
+        price,
+        recipe,
+        image,
+        quantity: 1,
+        email: user.email,
+      };
+      // console.log(cartItem);
+      fetch("http://localhost:6001/carts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cartItem),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -92,7 +126,10 @@ const Cards = ({ item }) => {
             {item.price}
           </h5>
 
-          <button className="btn bg-[#F00] hover:bg-black text-white">
+          <button
+            className="btn bg-[#F00] hover:bg-black text-white"
+            onClick={() => handleAddToCart(item)}
+          >
             Buy Now!
           </button>
         </div>

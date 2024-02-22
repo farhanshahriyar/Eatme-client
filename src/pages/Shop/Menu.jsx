@@ -152,7 +152,7 @@ const Menu = () => {
           </div>
 
           {/* sorting base filtering */}
-          <div className="flex justify-end mb-4 rounded-sm">
+          <div className="flex justify-end mb-4 rounded-sm sm:mt-2">
             <div className="bg-black p-2">
               <FaFilter className="h-4 w-4 text-white" />
             </div>
