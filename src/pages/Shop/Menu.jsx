@@ -108,7 +108,7 @@ const Menu = () => {
       </div>
 
       {/* menu shop section */}
-      <div className="max-w-screen-2xl container mx-auto">
+      <div className="max-w-screen-2xl container mx-auto p-8">
         {/* filtering and sorting */}
         <div className="flex flex-col md:flex-row flex-wrap md:justify-between items-center mb-9 ">
           {/* all category btns */}
