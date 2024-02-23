@@ -168,6 +168,13 @@ const Menu = () => {
           </div>
         </div>
 
+        {/* if api isnt available */}
+        {menu.length === 0 && (
+          <div className="flex justify-center items-center h-96">
+            <h1 className="text-2xl font-semibold">Hungrybox Server is loading...</h1>
+          </div>
+        )}
+
         {/* products card */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 p-4">
           {

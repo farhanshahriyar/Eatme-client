@@ -42,15 +42,19 @@
 // export default Cards;
 
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { AuthContext } from "../../../contexts/AuthProvider";
+// import { toast } from 'react-hot-toast'
+import Swal from "sweetalert2";
 
 const Cards = ({ item }) => {
   const { name, price, recipe, image, _id } = item;
   const [isHeartFilled, setIsHeartFilled] = useState(false);
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const navigate = useNavigate();
+  const location = useLocation();
+  // console.log(user);
 
   const handleHeartClick = () => {
     setIsHeartFilled(!isHeartFilled);
@@ -78,11 +82,46 @@ const Cards = ({ item }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
+          // toast.success("Item added to cart", {
+          //   duration: 2000,
+          //   position: "bottom-left",
+
+          // });
+          if(data.insertedId){
+           Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Item added to cart',
+            showConfirmButton: false,
+            timer: 1500
+           })
+          }
         })
         .catch((error) => {
-          console.log(error);
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'Something went wrong',
+            showConfirmButton: false,
+            timer: 1500
+            })
         });
+    } else {
+      Swal.fire({
+        title: "Please login to add items to cart",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Login",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/login", { state: { from: location } });
+        }
+      }
+      );
     }
   };
 

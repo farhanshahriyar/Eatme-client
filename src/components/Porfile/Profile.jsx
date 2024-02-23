@@ -1,14 +1,30 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const Profile = ({ user }) => {
-  const {logout} = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const handleLogout = () => {
-    logout().then(() => {
-      alert("Logged out successfully");
-    }).catch((error) => {
-      console.log(error.message);
-    });
+    logout()
+      .then(() => {
+        // alert("Logged out successfully");
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You want to logout?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            toast.success("Logged out successfully");
+          }
+        });
+      })
+      .catch((error) => {
+        toast.error("Failed to logout");
+      });
   };
   return (
     <div>
@@ -21,12 +37,14 @@ const Profile = ({ user }) => {
             className="drawer-button btn  btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              {
-                user.photoURL ? <img
-                alt={user.displayName}
-                src={user.photoURL}
-              /> : <img src="https://picsum.photos/id/1005/200/200" alt="profile" />
-              }
+              {user.photoURL ? (
+                <img alt={user.displayName} src={user.photoURL} />
+              ) : (
+                <img
+                  src="https://picsum.photos/id/1005/200/200"
+                  alt="profile"
+                />
+              )}
             </div>
           </label>
         </div>

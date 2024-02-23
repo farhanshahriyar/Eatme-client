@@ -5,6 +5,7 @@ import Footer from "../components/Footer/Footer";
 import "../App.css";
 import { AuthContext } from "../contexts/AuthProvider";
 import LoadingSpinner from "../components/LoadingSpinner/LoadingSpinner";
+import { Toaster} from 'react-hot-toast'
 
 const Main = () => {
   const { loading } = useContext(AuthContext);
@@ -13,6 +14,7 @@ const Main = () => {
       {
         loading ? <LoadingSpinner/> :
       <div>
+        <Toaster/>
         <Header />
         <div className="min-h-screen">
           <Outlet />
