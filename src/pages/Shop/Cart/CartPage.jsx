@@ -1,6 +1,10 @@
 import React from "react";
+import useCart from "../../../hooks/Cart/useCart";
+import { FaTrash } from "react-icons/fa";
 
 const CartPage = () => {
+  const [cart, refetch] = useCart();
+  console.log(cart);
   return (
     <div className="section-container">
       {/* Banner */}
@@ -35,41 +39,42 @@ const CartPage = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            <tr>
-                <td>1</td>
-              
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src="/tailwind-css-component-profile-2@56w.png"
-                        alt="Avatar Tailwind CSS Component"
-                      />
+            {cart.map((item, index) => (
+              <tr key={index}>
+                <td>{index+1}</td>
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={item.image || "https://picsum.photos/200/200"}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
                     </div>
+                    {/* <div>
+                      <div className="font-bold">Hart Hagerty</div>
+                      <div className="text-sm opacity-50">United States</div>
+                    </div> */}
                   </div>
-                  <div>
-                    <div className="font-bold">Hart Hagerty</div>
-                    <div className="text-sm opacity-50">United States</div>
-                  </div>
-                </div>
-              </td>
-              <td>
-                Zemlak, Daniel and Leannon
-                <br />
-                <span className="badge badge-ghost badge-sm">
-                  Desktop Support Technician
-                </span>
-              </td>
-              <td>1</td>
-              <th>
-                <button className="btn btn-ghost btn-xs">$100</button>
-              </th>
-            </tr>
+                </td>
+                <td>
+                   {item.name || "not verified item"}
+                  <br />
+                  <span className="badge badge-ghost badge-sm">
+                    Menu id: {item.menuItemId || "unverified id"}
+                  </span>
+                </td>
+                <td>{item.quantity}</td>
+                <td>{item.price}</td>
+                <th>
+                  <button className="btn btn-ghost btn-xs"><FaTrash className="text-base text-red-600"/></button>
+                </th>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
-
     </div>
   );
 };
