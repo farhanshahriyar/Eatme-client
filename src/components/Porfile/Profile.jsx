@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthProvider";
 import toast from "react-hot-toast";
@@ -15,6 +16,7 @@ const Profile = ({ user }) => {
           icon: "warning",
           showCancelButton: true,
           confirmButtonText: "Yes",
+          
           cancelButtonText: "No",
         }).then((result) => {
           if (result.isConfirmed) {

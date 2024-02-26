@@ -1,12 +1,41 @@
 import React from "react";
 import useCart from "../../../hooks/Cart/useCart";
 import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const CartPage = () => {
   const [cart, refetch] = useCart();
-  console.log(cart);
+  // console.log(cart);
+
+  // handle delete item from cart
+  const handleDelete = (item) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this item from cart?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // delete the item
+        fetch(`http://localhost:6001/carts/${item._id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              refetch();
+              Swal.fire("Deleted!", "Your item has been deleted.", "success");
+            }
+          });
+      }
+    });
+  };
+
   return (
-    <div className="section-container">
+    <div className="section-container mb-40">
       {/* Banner */}
       <div className="max-w-screen-2xl container mx-auto xl:px-24 bg-gradient-to-r from-[#FAFAFA] to-[#FCFCFC] p-4">
         <div className="py-48 flex flex-col items-center justify-center space-y-7">
@@ -41,7 +70,7 @@ const CartPage = () => {
             {/* row 1 */}
             {cart.map((item, index) => (
               <tr key={index}>
-                <td>{index+1}</td>
+                <td>{index + 1}</td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -52,23 +81,24 @@ const CartPage = () => {
                         />
                       </div>
                     </div>
-                    {/* <div>
-                      <div className="font-bold">Hart Hagerty</div>
-                      <div className="text-sm opacity-50">United States</div>
-                    </div> */}
                   </div>
                 </td>
-                <td>
-                   {item.name || "not verified item"}
+                <td className="font-medium">
+                  {item.name || "not verified item"}
                   <br />
                   <span className="badge badge-ghost badge-sm">
-                    Menu id: {item.menuItemId || "unverified id"}
+                    Menu ID: {item.menuItemId || "unverified id"}
                   </span>
                 </td>
-                <td>{item.quantity}</td>
-                <td>{item.price}</td>
+                <td className="font-medium">{item.quantity}</td>
+                <td className="font-medium">{item.price}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs"><FaTrash className="text-base text-red-600"/></button>
+                  <button
+                    className="btn btn-ghost btn-xs"
+                    onClick={() => handleDelete(item)}
+                  >
+                    <FaTrash className="text-base text-red-600" />
+                  </button>
                 </th>
               </tr>
             ))}

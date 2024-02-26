@@ -13,7 +13,7 @@ const Header = () => {
   const { user } = useContext(AuthContext);
   // console.log(user);
   const [cart, refetech] = useCart();
-  console.log(cart);
+  // console.log(cart);
 
   // handle scroll event
   useEffect(() => {
