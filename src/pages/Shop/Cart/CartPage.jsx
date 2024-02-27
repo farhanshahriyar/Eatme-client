@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import useCart from "../../../hooks/Cart/useCart";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const CartPage = () => {
   const [cart, refetch] = useCart();
+  const { user } = useContext(AuthContext);
   // console.log(cart);
 
   // handle delete item from cart
@@ -90,7 +92,8 @@ const CartPage = () => {
                     Menu ID: {item.menuItemId || "unverified id"}
                   </span>
                 </td>
-                <td className="font-medium">{item.quantity}</td>
+                <td className="font-medium"><button className="btn btn-xs">-</button><input type="number" value={item.quantity} className="w-10 mx-2 text-center overflow-hidden
+                appearance-none"/><button className="btn btn-xs">+</button></td>
                 <td className="font-medium">{item.price}</td>
                 <th>
                   <button
@@ -104,6 +107,55 @@ const CartPage = () => {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* customer details */}
+      <div className="my-12 flex flex-col md:flex-row justify-between items-start">
+        <div className="md:w-1/2 space-y-3">
+          <h3 className="text-xl font-bold underline">Customer Details</h3>
+          <p className="text-gray-800"><span className="font-bold">Customer Name:</span> {user.displayName}</p>
+          <p className="text-gray-800"><span className="font-bold">Customer Email:</span> {user.email}</p>
+          <p className="text-gray-800"><span className="font-bold">Customer UserID:</span> {user.uid}</p>
+          <p className="text-gray-800">
+            <span className="font-bold">Total Items:</span> {user.phone || "You did not add any number."}
+          </p>
+        </div>
+        <div className="md:w-1/2 space-y-3">
+          <h3 className="text-xl font-bold underline">Shopping Details</h3>
+          <p className="text-gray-800"><span className="font-bold">Total Items:</span> {cart.length}</p>
+          <p className="text-gray-800">
+            <span className="font-bold">Total Price:</span> $
+            {cart.reduce((acc, item) => {
+              return acc + item.price * item.quantity;
+            }, 0)}
+          </p>
+          <button
+            type="button"
+            className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-black disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+          >
+            Proceed to Checkout
+            <svg
+              className="flex-shrink-0 size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m5 11 4-7" />
+              <path d="m19 11-4-7" />
+              <path d="M2 11h20" />
+              <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8c.9 0 1.8-.7 2-1.6l1.7-7.4" />
+              <path d="m9 11 1 9" />
+              <path d="M4.5 15.5h15" />
+              <path d="m15 11-1 9" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -28,3 +28,16 @@ header {
     text-underline-offset: 5px;
     color: #f00;
 }
+
+/* for remove value up and down in cart page - quantity part */
+/* chrome, safari , edge, opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
