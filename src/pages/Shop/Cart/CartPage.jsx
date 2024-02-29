@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useCart from "../../../hooks/Cart/useCart";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
@@ -7,7 +7,109 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 const CartPage = () => {
   const [cart, refetch] = useCart();
   const { user } = useContext(AuthContext);
-  // console.log(cart);
+  const [cartItems, setCartItems] = useState([]);
+
+  // calculate price
+  const calculatePrice = (item) => {
+    return item.price * item.quantity;
+  };
+
+  // // handle decrease item quantity
+  // const handleDecrease = (item) => {
+  //   // console.log(item._id)
+  //   fetch(`http://localhost:6001/carts/${item._id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ quantity: item.quantity - 1 }),
+  //   }).then((res) => res.json()).then((data) => {
+  //     const updatedCart = cartItems.map((cartItem) => {
+  //       if (cartItem._id === item._id) {
+  //         return {
+  //           ...cartItem,
+  //           quantity: cartItem.quantity - 1,
+  //         };
+  //       }
+  //       return cartItem;
+  //     });
+  //     refetch();
+  //     setCartItems(updatedCart);
+  //   });
+  //   refetch();
+  // };
+       
+
+  // // handle increase item quantity
+  // const handleIncrease = (item) => {
+  //   fetch(`http://localhost:6001/carts/${item._id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({ quantity: item.quantity + 1 }),
+  //   }).then((res) => res.json()).then((data) => {
+  //     const updatedCart = cartItems.map((cartItem) => {
+  //       if (cartItem._id === item._id) {
+  //         return {
+  //           ...cartItem,
+  //           quantity: cartItem.quantity + 1,
+  //         };
+  //       }
+  //       return cartItem;
+  //     });
+  //     refetch();
+  //     setCartItems(updatedCart);
+  //   });
+  // };
+
+  // Use async/await for clarity
+const handleDecrease = async (item) => {
+  if (item.quantity - 1 > 0) { // Ensure we don't decrease below 1
+    const response = await fetch(`http://localhost:6001/carts/${item._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ quantity: item.quantity - 1 }),
+    });
+    const data = await response.json();
+    if (data) {
+      const updatedCart = cartItems.map((cartItem) => {
+        if (cartItem._id === item._id) {
+          return { ...cartItem, quantity: cartItem.quantity - 1 };
+        }
+        return cartItem;
+      });
+      setCartItems(updatedCart);
+      // Optionally refetch here if needed
+      refetch();
+    }
+  }
+};
+
+const handleIncrease = async (item) => {
+  const response = await fetch(`http://localhost:6001/carts/${item._id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ quantity: item.quantity + 1 }),
+  });
+  const data = await response.json();
+  if (data) {
+    const updatedCart = cartItems.map((cartItem) => {
+      if (cartItem._id === item._id) {
+        return { ...cartItem, quantity: cartItem.quantity + 1 };
+      }
+      return cartItem;
+    });
+    setCartItems(updatedCart);
+    // Optionally refetch here if needed
+    refetch();
+  }
+};
+
 
   // handle delete item from cart
   const handleDelete = (item) => {
@@ -92,9 +194,28 @@ const CartPage = () => {
                     Menu ID: {item.menuItemId || "unverified id"}
                   </span>
                 </td>
-                <td className="font-medium"><button className="btn btn-xs">-</button><input type="number" value={item.quantity} className="w-10 mx-2 text-center overflow-hidden
-                appearance-none"/><button className="btn btn-xs">+</button></td>
-                <td className="font-medium">{item.price}</td>
+                <td className="font-medium">
+                  <button
+                    className="btn btn-xs"
+                    onClick={() => handleDecrease(item)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    onChange={() => console.log(item.quantity)}
+                    className="w-10 mx-2 text-center overflow-hidden
+                appearance-none"
+                  />
+                  <button
+                    className="btn btn-xs"
+                    onClick={() => handleIncrease(item)}
+                  >
+                    +
+                  </button>
+                </td>
+                <td className="font-medium">${calculatePrice(item).toFixed(2)}</td>
                 <th>
                   <button
                     className="btn btn-ghost btn-xs"
@@ -113,16 +234,25 @@ const CartPage = () => {
       <div className="my-12 flex flex-col md:flex-row justify-between items-start">
         <div className="md:w-1/2 space-y-3">
           <h3 className="text-xl font-bold underline">Customer Details</h3>
-          <p className="text-gray-800"><span className="font-bold">Customer Name:</span> {user.displayName}</p>
-          <p className="text-gray-800"><span className="font-bold">Customer Email:</span> {user.email}</p>
-          <p className="text-gray-800"><span className="font-bold">Customer UserID:</span> {user.uid}</p>
           <p className="text-gray-800">
-            <span className="font-bold">Total Items:</span> {user.phone || "You did not add any number."}
+            <span className="font-bold">Customer Name:</span> {user.displayName}
+          </p>
+          <p className="text-gray-800">
+            <span className="font-bold">Customer Email:</span> {user.email}
+          </p>
+          <p className="text-gray-800">
+            <span className="font-bold">Customer UserID:</span> {user.uid}
+          </p>
+          <p className="text-gray-800">
+            <span className="font-bold">Total Items:</span>{" "}
+            {user.phone || "You did not add any number."}
           </p>
         </div>
         <div className="md:w-1/2 space-y-3">
           <h3 className="text-xl font-bold underline">Shopping Details</h3>
-          <p className="text-gray-800"><span className="font-bold">Total Items:</span> {cart.length}</p>
+          <p className="text-gray-800">
+            <span className="font-bold">Total Items:</span> {cart.length}
+          </p>
           <p className="text-gray-800">
             <span className="font-bold">Total Price:</span> $
             {cart.reduce((acc, item) => {
