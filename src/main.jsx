@@ -7,8 +7,6 @@ import AuthProvider from "./contexts/AuthProvider";
 
 // tankstack
 import {
-  useQuery,
-  useMutation,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
