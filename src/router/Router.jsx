@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
       element: <Main/>,
         children: [
             { path: "/", element: <Home/> },
-            { path: "/menu", element: <PrivateRouter><Menu/></PrivateRouter> },
+            { path: "/menu", element: <Menu/> },
             { path: "/about", element: <About/> },
             { path: "/contact", element: <Contact/> },
             { path: "/phone-login", element: <PhoneLogin/> },

@@ -85,6 +85,8 @@ const handleDecrease = async (item) => {
       // Optionally refetch here if needed
       refetch();
     }
+  } else {
+    Swal.fire("Error", "Quantity cannot be less than 1", "error");
   }
 };
 
@@ -137,6 +139,13 @@ const handleIncrease = async (item) => {
       }
     });
   };
+
+  // calculate total price 
+  const cartSubTotal = cart.reduce((total, item)=>{
+    return total + calculatePrice(item)
+  }, 0)
+
+  const orderTotal = cartSubTotal;
 
   return (
     <div className="section-container mb-40">
@@ -254,11 +263,7 @@ const handleIncrease = async (item) => {
             <span className="font-bold">Total Items:</span> {cart.length}
           </p>
           <p className="text-gray-800">
-            <span className="font-bold">Total Price:</span> $
-            {cart.reduce((acc, item) => {
-              return acc + item.price * item.quantity;
-            }, 0)}
-          </p>
+            <span className="font-bold">Total Price:</span> $ {orderTotal.toFixed(2)}</p>
           <button
             type="button"
             className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-black disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
