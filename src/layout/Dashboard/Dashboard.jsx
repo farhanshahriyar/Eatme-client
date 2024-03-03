@@ -1,31 +1,69 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
-import { FaEdit, FaPlusCircle, FaRegUser, FaShoppingBag, FaUser } from "react-icons/fa";
+import {
+  FaEdit,
+  FaLocationArrow,
+  FaPlusCircle,
+  FaQuestion,
+  FaRegUser,
+  FaShoppingBag,
+  FaUser,
+} from "react-icons/fa";
 import logoImg from "../../../public/logo.png";
 
 const Dashboard = () => {
+  const sharedLinks = (
+    <>
+      <li className="mt-3">
+        <Link to="/">
+          <MdDashboard />
+          Home
+        </Link>
+      </li>
+      <li className="mt-3">
+        <Link to="/menu">
+          <FaShoppingBag/>
+          Menu
+        </Link>
+      </li>
+      <li className="mt-3">
+        <Link to="/">
+          <FaLocationArrow />
+          Order Tracking
+        </Link>
+      </li>
+      <li className="mt-3">
+        <Link to="/">
+          <FaQuestion/>
+          Customer Support
+        </Link>
+      </li>
+    </>
+  );
+
   return (
     <div>
       <div className="drawer sm:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col sm:items-center sm:justify-center my-2">
+        <div className="drawer-content flex flex-col sm:items-start sm:justify-start my-2">
           {/* Page content here */}
           <div className="flex items-center justify-between mx-4">
-          <label
-            htmlFor="my-drawer-2"
-            className="btn bg-red-600 hover:bg-black drawer-button lg:hidden"
-          >
-            <MdDashboard className=" text-white"/>
-          </label>
-          <button
-              className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white"
+            <label
+              htmlFor="my-drawer-2"
+              className="btn bg-red-600 hover:bg-black drawer-button lg:hidden"
             >
+              <MdDashboard className=" text-white" />
+            </label>
+            <button className="btn rounded-full px-6 flex item-center gap-2 bg-[#F00] text-[#FFFFFF] hover:bg-[#FF8938] hover:text-white sm:hidden">
               <FaRegUser />
               Logout
             </button>
           </div>
-          <Outlet />
+          {/* outlet */}
+          <div className="mt-5 md:mt-2 mx-4">
+            <Outlet />
+          </div>
         </div>
         <div className="drawer-side">
           <label
@@ -42,7 +80,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <hr></hr>
-            <div className="text-xl font-medium">
+            <div className="text-xl font-light">
               <li className="mt-3">
                 <Link to="/dashboard">
                   <MdDashboard />
@@ -68,11 +106,18 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/dashboard/users">
+                <Link to="/dashboard/users" className="mb-3">
                   <FaUser />
                   Users
                 </Link>
               </li>
+
+              <hr></hr>
+
+              {/* Shared */}
+              {
+                sharedLinks
+              }
             </div>
           </ul>
         </div>
