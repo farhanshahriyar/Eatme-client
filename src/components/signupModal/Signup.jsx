@@ -5,8 +5,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { IoIosCloseCircle } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosSecure/useAxiosPublic/useAxiosPublic";
 
 const Signup = () => {
+  const axiosPulic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -30,9 +33,22 @@ const Signup = () => {
       .then((result) => {
         //signed up successfully
         const user = result.user;
-        alert("Account created successfully");
-        document.getElementById("my_modal_5").close();
-        navigate(from, { replace: true });
+        // create user entry in database
+        const userInfo = {
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL,
+          role: "user",
+        };
+        axiosPulic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            // console.log("user created in database");
+            toast.success("Account created successfully");
+            // alert("Account created successfully");
+            document.getElementById("my_modal_5").close();
+            navigate(from, { replace: true });
+          }
+        });
       })
       .catch((error) => {
         const errorMessage = error.message;

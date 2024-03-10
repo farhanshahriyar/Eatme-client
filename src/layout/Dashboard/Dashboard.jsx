@@ -115,9 +115,11 @@ const Dashboard = () => {
               <hr></hr>
 
               {/* Shared */}
+              <div className="text-xl font-light">
               {
                 sharedLinks
               }
+              </div>
             </div>
           </ul>
         </div>
