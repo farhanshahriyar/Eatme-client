@@ -9,7 +9,7 @@ import toast, { Toaster } from "react-hot-toast";
 import useAxiosPublic from "../../hooks/useAxiosSecure/useAxiosPublic/useAxiosPublic";
 
 const Signup = () => {
-  const axiosPulic = useAxiosPublic();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -40,7 +40,7 @@ const Signup = () => {
           photo: user.photoURL,
           role: "user",
         };
-        axiosPulic.post("/users", userInfo).then((res) => {
+        axiosPublic.post("/users", userInfo).then((res) => {
           if (res.data.insertedId) {
             // console.log("user created in database");
             toast.success("Account created successfully");
@@ -68,7 +68,7 @@ const Signup = () => {
           photo: user.photoURL,
           role: "user",
         };
-        axiosPulic.post("/users", userInfo).then((res) => {
+        axiosPublic.post("/users", userInfo).then((res) => {
           if (res.data.insertedId) {
             // console.log("user created in database");
             toast.success("Account created successfully");

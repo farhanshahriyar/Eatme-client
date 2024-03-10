@@ -4,8 +4,12 @@ import { FaFacebook, FaGoogle, FaPhone } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IoIosCloseCircle } from "react-icons/io";
 import { AuthContext } from "../../contexts/AuthProvider";
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosSecure/useAxiosPublic/useAxiosPublic";
+
 
 const Modal = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -39,14 +43,47 @@ const Modal = () => {
       });
   };
 
+  // // login with google
+  // const handleLogin = () => {
+  //   signUpWithGmail()
+  //     .then((result) => {
+  //       const user = result.user;
+  //       alert("Login successfully");
+  //       document.getElementById("my_modal_5").close();
+  //       navigate(from, { replace: true });
+  //     })
+  //     .catch((error) => {
+  //       const errorCode = error.code;
+  //       const errorMessage = error.message;
+  //       alert(errorMessage);
+  //       console.log(error);
+  //     });
+  // };
+
   // login with google
   const handleLogin = () => {
     signUpWithGmail()
       .then((result) => {
         const user = result.user;
-        alert("Login successfully");
-        document.getElementById("my_modal_5").close();
-        navigate(from, { replace: true });
+         // create user entry in database
+         const userInfo = {
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL,
+          role: "user",
+        };
+        axiosPublic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            // console.log("user created in database");
+            toast.success("Account created successfully");
+            // alert("Account created successfully");
+            document.getElementById("my_modal_5").close();
+            navigate(from, { replace: true });
+          }
+        });
+        // alert("Login successfully");
+        // document.getElementById("my_modal_5").close();
+        // navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -55,6 +92,7 @@ const Modal = () => {
         console.log(error);
       });
   };
+
 
    // login with facebook 
   const handleFacebook = () => {
