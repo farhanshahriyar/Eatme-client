@@ -61,9 +61,25 @@ const Signup = () => {
     signUpWithGmail()
       .then((result) => {
         const user = result.user;
-        alert("Login successfully");
-        document.getElementById("my_modal_5").close();
-        navigate(from, { replace: true });
+         // create user entry in database
+         const userInfo = {
+          email: user.email,
+          name: user.displayName,
+          photo: user.photoURL,
+          role: "user",
+        };
+        axiosPulic.post("/users", userInfo).then((res) => {
+          if (res.data.insertedId) {
+            // console.log("user created in database");
+            toast.success("Account created successfully");
+            // alert("Account created successfully");
+            document.getElementById("my_modal_5").close();
+            navigate(from, { replace: true });
+          }
+        });
+        // alert("Login successfully");
+        // document.getElementById("my_modal_5").close();
+        // navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
