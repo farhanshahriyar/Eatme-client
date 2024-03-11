@@ -13,6 +13,7 @@ import {
 import logoImg from "../../../public/logo.png";
 
 const Dashboard = () => {
+  const isAdmin = false;
   const sharedLinks = (
     <>
       <li className="mt-3">
@@ -81,7 +82,9 @@ const Dashboard = () => {
             </li>
             <hr></hr>
             <div className="text-xl font-light">
-              <li className="mt-3">
+              {
+                isAdmin ? <>
+                <li className="mt-3">
                 <Link to="/dashboard">
                   <MdDashboard />
                   Dashboard
@@ -111,6 +114,17 @@ const Dashboard = () => {
                   Users
                 </Link>
               </li>
+                </> 
+                :
+                <>
+                <li className="mt-3">
+                <Link to="/dashboard">
+                  <MdDashboard />
+                  User Dashboard
+                </Link>
+              </li>
+                </>
+              }
 
               <hr></hr>
 

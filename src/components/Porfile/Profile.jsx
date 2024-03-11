@@ -43,7 +43,7 @@ const Profile = ({ user }) => {
                 <img alt={user.displayName} src={user.photoURL} />
               ) : (
                 <img
-                  src="https://picsum.photos/id/1005/200/200"
+                  src="https://i.ibb.co/LhJHCvX/logo.png"
                   alt="profile"
                 />
               )}
