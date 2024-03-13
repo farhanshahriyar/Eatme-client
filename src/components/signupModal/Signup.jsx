@@ -73,21 +73,18 @@ const Signup = () => {
           if (res.data.insertedId) {
             // console.log("user created in database");
             toast.success("Account created successfully");
-            // alert("Account created successfully");
-            // document.getElementById("my_modal_5").close();
-            // navigate(from, { replace: true });
             navigate("/", { replace: true });
+          } else {
+            toast.error("Account already exists");
           }
         });
-        // alert("Login successfully");
-        // document.getElementById("my_modal_5").close();
-        // navigate(from, { replace: true });
+      
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         alert(errorMessage);
-        console.log(error);
+        toast.error(errorMessage);
       });
   };
 
